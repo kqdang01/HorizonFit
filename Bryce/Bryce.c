@@ -79,7 +79,7 @@ int main(void)
                     }
                     else
                     {
-                        printf("Your BMI is %f\n", info.bmi);
+                        printf("Your BMI is %.2f\n", info.bmi);
                         printf("%s",info.bmi_cat);
                     }
                 }
