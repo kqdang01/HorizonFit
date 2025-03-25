@@ -7,7 +7,7 @@ struct User
     float weight;
     float height;
     float bmi;
-    char bmi_cat[50];
+    char bmi_cat[30];
 }info;
 
 
@@ -22,27 +22,27 @@ void BMI()
     printf("Your BMI is %.2f", info.bmi);
     if (info.bmi < 18.5)
     {
-        strcpy(info.bmi_cat, "You are UNDERWEIGHT");
-        printf("\nYou are UNDERWEIGHT");
+        strcpy(info.bmi_cat, "You are UNDERWEIGHT\n");
+        printf("\nYou are UNDERWEIGHT\n");
     }
     else
     {   
         if (info.bmi < 25)
         {
-            strcpy(info.bmi_cat, "You have a NORMAL WEIGHT");
-            printf("\nYou have a NORMAL WEIGHT");
+            strcpy(info.bmi_cat, "You have a NORMAL WEIGHT\n");
+            printf("\nYou have a NORMAL WEIGHT\n");
         }
         else
         {
             if (info.bmi < 30)
             {
-                strcpy(info.bmi_cat,"You are OVERWEIGHT");
-                printf("\nYou are OVERWEIGHT");
+                strcpy(info.bmi_cat,"You are OVERWEIGHT\n");
+                printf("\nYou are OVERWEIGHT\n");
             }
             else if (info.bmi >= 30)
             {
-                strcpy(info.bmi_cat,"You are OBESE");
-                printf("\nYou are OBESE");
+                strcpy(info.bmi_cat,"You are OBESE\n");
+                printf("\nYou are OBESE\n");
             }
         }
     }
@@ -50,16 +50,17 @@ void BMI()
     return;
 }
 
-int main()
+int main(void)
 {
     int action;
     char string[100];
     printf("Please, enter your name:");
     fgets(info.name,100,stdin);
-    printf("Welcome %s", info.name);
+    info.name[strcspn(info.name, "\n")] = '\0';
+    printf("Welcome %s.", info.name);
     do
     {
-        printf("What would you like to do?\n\nOPTIONS:\n1- BMI\n2 - API\n3- Calorie Tracker\n\nEnter the number of the action you want to perform:", info.name);
+        printf("\nWhat would you like to do?\n\nOPTIONS:\n1- BMI\n2 - API\n3- Calorie Tracker\n\nEnter the number of the action you want to perform: ", info.name);
         scanf("%d", &action);
         switch (action)
         {
@@ -70,7 +71,7 @@ int main()
                 }
                 else
                 {
-                    printf("Would you like to recalculate your BMI?\n1- YES\n2- NO");
+                    printf("Would you like to recalculate your BMI?\n1- YES\n2- NO\nEnter the number of the action you want to perform: ");
                     scanf("%d", &action);
                     if (action == 1)
                     {
@@ -78,17 +79,18 @@ int main()
                     }
                     else
                     {
-                        printf("Your BMI is %f", info.bmi);
+                        printf("Your BMI is %f\n", info.bmi);
+                        printf("%s",info.bmi_cat);
                     }
                 }
-                break;    
+                break;   
             default:
                 printf("\nWrong input");
+                break;
         }
-        printf("\nAre you done?\nEnter a number to select an answer:\n1- YES\n2- NO\n ");
-
-    }
-    while (1);
-    
+        printf("\nAre you done?\n1- YES\n2- NO\nEnter the number of the action you want to perform: ");
+        scanf("%d", &action);
+    } while (action != 1);
+    printf("Goodbye %s, have a good day!", info.name);
     return 0;
 }
