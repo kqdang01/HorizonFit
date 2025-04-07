@@ -205,6 +205,7 @@ void CC()
         }
         TC +=EC;
             printf("Did you use another equipment? (y/n): ");
+            getchar();
             scanf("%c", &UE);
     }
     printf("\n======== WORKOUT SUMMARY =======\n");
