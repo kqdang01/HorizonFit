@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "cJSON.c"
 
 #define MAX_LINE 30
@@ -61,6 +62,8 @@ int main(void)
         default:
             printf("Invalid Choice.\n");
     }
+
+    cJSON_Delete(jsonFile);
     return 0;
 }
 
@@ -149,8 +152,11 @@ void loginUser(cJSON *jsonFile)
 void registerUser(cJSON* jsonFile)
 {
     //variables
+    int invalid = 0;
     cJSON *users = NULL;
+    cJSON *userElement = NULL;
     cJSON *user = NULL;
+    cJSON *usernames = NULL;
     char username[MAX_LINE] = {};
     char pass[MAX_LINE] = {};
     FILE *db;
@@ -162,12 +168,52 @@ void registerUser(cJSON* jsonFile)
         printf("Something went wrong.\n");
     }
 
-    //prompt for username & password
-    printf("Please create your username: ");
-    scanf("%s", username);
+    //prompt for username & password and check if both username and password typed is valid
+    do
+    {
+        printf("Please create your username: ");
+        invalid = 0;
+        fgets(username, MAX_LINE, stdin);
+        username[strlen(username)-1] = '\0';
+        for (int i = 0; i < strlen(username); i++)
+        {
+            if (!isalnum(username[i]))
+            {
+                invalid = 1;
+                printf("Username contained invalid character, please re-type your username.\n\n");
+                break;
+            }
+        }
+        if (strlen(username) <= 3)
+        {
+            invalid = 1;
+            printf("Username is too short, please try again\n");
+        }
+    } 
+    while (invalid);
     printf("\n");
-    printf("Please create your password: ");
-    scanf("%s", pass);
+    do
+    {
+        invalid = 0;
+        printf("Please create your password: ");
+        fgets(pass, MAX_LINE, stdin);
+        pass[strlen(pass)-1] = '\0';
+        for (int i = 0; i < strlen(pass); i++)
+        {
+            if (!isalnum(pass[i]))
+            {
+                invalid = 1;
+                printf("Password contained an invalid character, please re-type your password.\n\n");
+                break;
+            }
+        }
+        if (strlen(pass) <= 3)
+        {
+            invalid = 1;
+            printf("Password is too short, please try again\n");
+        }
+    } 
+    while (invalid);
     printf("\n");
 
     //get and create objects
@@ -183,6 +229,18 @@ void registerUser(cJSON* jsonFile)
         printf("Something went wrong.\n");
         exit(0);
     }
+
+    //check if there are existing usernames in the database
+    cJSON_ArrayForEach(userElement, users)
+    {
+        usernames = cJSON_GetObjectItemCaseSensitive(userElement, "username");
+        if (!strcmp(usernames->valuestring, username))
+        {
+            printf("Another account with this same username has already been created.\n");
+            return;
+        }
+    }
+
     //add items to user object & add it to the database
     user = createUserObj(user, username, pass);
     cJSON_AddItemToArray(users, user);
