@@ -40,8 +40,8 @@ void CC()
 
         while (UE=='y'|| UE=='Y')
         {
-            int equipment;
-            int ET,duration=0,sets=0,reps=0,CPM=0,EC=0,SC;
+            int equipment=0;
+            int ET,duration=0,sets=0,reps=0,CPM=0,EC=0,SC=0;
             char EN[100];
 
             printf("\n===== EQUIPMENT TYPE ======\n");
@@ -53,30 +53,34 @@ void CC()
             switch (ET)
             {
                 case 1:
-                printf("\n====== CARDIO EQUIPMENT ======\n");
-                printf("1. Teadmill\n");
-                printf("2. Elliptical\n");
-                printf("3. Rower\n");
-                printf("4. Upright Bike\n");
-                printf("5. Stepmill\n");
-                printf("6. Recumbent Bike\n");
-                printf("7. Recumbent Stepper\n");
-                printf("8. Arc\n");
-                printf("9. UBE\n");
-                printf("Select Cardio equipment (1-9): ");
-                scanf("%d", &equipment);
-
-                printf("Enter the number of minutes used: ");
-                scanf("%d", &duration);
-                //if(equipment == 1)
-                // {
-                //     CPM=TREADMIL_CALORUES;
-                // }
-                // else if(equipment ==2)
-                // [
-                //     CPM=ELLIPTICAL_CALORUES;
-                // ]
-
+                    while (equipment < 1 || equipment > 9)
+                    {
+                        printf("\n====== CARDIO EQUIPMENT ======\n");
+                        printf("1. Teadmill\n");
+                        printf("2. Elliptical\n");
+                        printf("3. Rower\n");
+                        printf("4. Upright Bike\n");
+                        printf("5. Stepmill\n");
+                        printf("6. Recumbent Bike\n");
+                        printf("7. Recumbent Stepper\n");
+                        printf("8. Arc\n");
+                        printf("9. UBE\n");
+                        printf("Select Cardio equipment (1-9): ");
+                        scanf("%d", &equipment);
+                        if(equipment > 1 || equipment < 9)
+                        {
+                            printf("Invalid Choice\n");
+                        }
+                    }
+                do{
+                    printf("Enter the how many minutes used: ");
+                    scanf(" %d", &duration);
+                    if(duration < 0 || duration > 1400)
+                    {
+                        printf("Invalid Choice\n");
+                    }
+                }while(duration <= 0 || duration > 1440);
+            
                 switch (equipment)
                 {
                     case 1:
@@ -117,34 +121,61 @@ void CC()
                         break;
                     default:
                         printf("Invalid choice.\n");
-                        strcpy(EN, "Unknoen Cardio");
+                        strcpy(EN, "Unknown Cardio");
                         CPM=5;
                 }
                 EC=duration * CPM;
                 printf("%s: %d minutes - %d calorues\n", EN,duration,EC);
                 break;
-
+            
                 case 2:
-                printf("\n====== STRENGTH EQUIPMENT ======\n");
-                printf("1. Cable Tower\n");
-                printf("2. Fit Bench\n");
-                printf("3. Free Weights\n");
-                printf("4. Pulley\n");
-                printf("5. Smith Machine\n");
-                printf("6. Functional Station\n");
-                printf("7. TRX\n");
-                printf("8. Supine Bench Press\n");
-                printf("9. Squat Lunge Machine\n");
-                printf("10. Glute Machine\n");
-                printf("Select Cardio equipment (1-10): ");
-                scanf("%d", &SC);
-
+                    while(SC < 1 || SC > 10)
+                    {
+                        printf("\n====== STRENGTH EQUIPMENT ======\n");
+                        printf("1. Cable Tower\n");
+                        printf("2. Fit Bench\n");
+                        printf("3. Free Weights\n");
+                        printf("4. Pulley\n");
+                        printf("5. Smith Machine\n");
+                        printf("6. Functional Station\n");
+                        printf("7. TRX\n");
+                        printf("8. Supine Bench Press\n");
+                        printf("9. Squat Lunge Machine\n");
+                        printf("10. Glute Machine\n");
+                        printf("Select Cardio equipment (1-10): ");
+                        scanf("%d", &SC);
+                            if(SC < 1 || SC > 10)
+                            {
+                                printf("Invalid Choice\n");
+                            }
+                }
+                do
+                {
                 printf("Enter the number of minutes used: ");
-                scanf("%d", &duration);
+                scanf(" %d", &duration);
+                    if(duration < 0 || duration > 1440)
+                        {
+                        printf("Invalid Number\n");
+                        }
+                }while(duration > 0 || duration < 1440);
+                do
+                {
                 printf("Enter the number of sets: ");
-                scanf("%d", &sets);
+                scanf(" %d", &sets);
+                    if(sets < 0 || sets > 100)
+                        {
+                        printf("Invalid Number\n");
+                        }
+                }while(sets > 0 || sets < 100);
+                do
+                {
                 printf("Enter the number of reps per set: ");
                 scanf("%d", &reps);
+                    if(reps < 0 || reps > 1000)
+                        {
+                        printf("Invalid Number\n");
+                         }
+                }while(reps > 0 || reps < 1000);
 
                 switch (SC)
                 {
@@ -198,8 +229,9 @@ void CC()
             break;
 
             default:
-            printf("Invalid selection. Please try again.\n");
-            continue;
+                printf("Invalid selection. Please try again.\n");
+                EC=0;
+                continue;
 
            
         }
