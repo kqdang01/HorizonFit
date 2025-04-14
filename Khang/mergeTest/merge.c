@@ -2,21 +2,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
+#include <time.h>
 #include "cJSON.c"
+#include "Bryce.c"
+#include "Connor.c"
 
 #define MAX_LINE 30
 #define MAX_BUFFER 3000
 
 cJSON* createUserObj(cJSON*,char*,char*);
 void readEntireFile(char*,char*);
-void loginUser(cJSON*);
+bool loginUser(cJSON*);
 void registerUser(cJSON*);
 void prepFile();
+void promptChoices();
 
 int main(void)
 {
     //variables
     int choiceVariable;
+    int secondChoiceVariableNumberTwoWhichIsAlsoAChoiceVariableThatIsSecondToTheFirstChoiceVariableWhichMakesItTheSecondChoiceVariable;
+    bool loggedOn;
     char buffer[MAX_BUFFER] = {};
     char line[MAX_LINE] = {};
     char username[MAX_LINE] = {};
@@ -55,13 +62,40 @@ int main(void)
     switch(choiceVariable)
     {
         case 1:
-            loginUser(jsonFile);
+            loggedOn = loginUser(jsonFile);
             break;
         case 2:
             registerUser(jsonFile);
             break;
         default:
             printf("Invalid Choice.\n");
+    }
+
+    //check if user is loggedOn
+    if (loggedOn)
+    {
+        printf("\n=======================================\n\n");
+        printf("\nUser is currently logged on.\n\n");
+        printf("\n=======================================\n\n");  
+        printf("\n\n");
+    }
+    else
+    {
+        exit(0);
+    }
+
+    //display features
+    promptChoices();
+    scanf("%d", &secondChoiceVariableNumberTwoWhichIsAlsoAChoiceVariableThatIsSecondToTheFirstChoiceVariableWhichMakesItTheSecondChoiceVariable);
+    getchar();
+    switch(secondChoiceVariableNumberTwoWhichIsAlsoAChoiceVariableThatIsSecondToTheFirstChoiceVariableWhichMakesItTheSecondChoiceVariable)
+    {
+        case 1:
+            Bryce();
+            break;
+        case 2:
+            CC();
+        default:
     }
 
     cJSON_Delete(jsonFile);
@@ -96,7 +130,7 @@ void readEntireFile(char *buffer, char *line)
     fclose(db);
 }
 
-void loginUser(cJSON *jsonFile)
+bool loginUser(cJSON *jsonFile)
 {
     //variables
     int foundUsername = 0;
@@ -136,6 +170,7 @@ void loginUser(cJSON *jsonFile)
             if (!strcmp(userPass->valuestring, pass))
             {
                 printf("login successful!\n");
+                return true;
             }
             else
             {
@@ -148,6 +183,7 @@ void loginUser(cJSON *jsonFile)
     {
         printf("Cannot find an account with that username.\n");
     }
+    return false;
 }
 
 void registerUser(cJSON* jsonFile)
@@ -292,4 +328,13 @@ void prepFile()
     //write structure to file
     fprintf(db, "%s", cJSON_Print(database));
     fclose(db);
+}
+
+//prompt function for user choices cause im lazy
+void promptChoices()
+{
+    printf("Choose a feature you would like to try out?\n\n");
+    printf("1. BMI Calculator\n");
+    printf("2. Calorie Caculator\n");
+    printf("\nEnter your choice: ");
 }
