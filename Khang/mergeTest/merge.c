@@ -26,8 +26,6 @@ int main(void)
     bool loggedOn;
     char buffer[MAX_BUFFER] = {};
     char line[MAX_LINE] = {};
-    char username[MAX_LINE] = {};
-    char pass[MAX_LINE] = {};
     cJSON *jsonFile = NULL;
 
     //opening the database file for reading and writing

@@ -12,6 +12,7 @@ void readEntireFile(char*,char*);
 void loginUser(cJSON*);
 void registerUser(cJSON*);
 void prepFile();
+int safeInput(char*, int);
 
 int main(void)
 {
@@ -19,8 +20,6 @@ int main(void)
     int choiceVariable;
     char buffer[MAX_BUFFER] = {};
     char line[MAX_LINE] = {};
-    char username[MAX_LINE] = {};
-    char pass[MAX_LINE] = {};
     cJSON *jsonFile = NULL;
 
     //opening the database file for reading and writing
@@ -173,9 +172,8 @@ void registerUser(cJSON* jsonFile)
     do
     {
         printf("Please create your username: ");
-        invalid = 0;
-        fgets(username, MAX_LINE, stdin);
-        username[strlen(username)-1] = '\0';
+        invalid = safeInput(username,MAX_LINE);
+        //check for if input contained any invalid characters
         for (int i = 0; i < strlen(username); i++)
         {
             if (!isalnum(username[i]))
@@ -185,6 +183,7 @@ void registerUser(cJSON* jsonFile)
                 break;
             }
         }
+        //if input was too short
         if (strlen(username) <= 3)
         {
             invalid = 1;
@@ -195,10 +194,8 @@ void registerUser(cJSON* jsonFile)
     printf("\n");
     do
     {
-        invalid = 0;
         printf("Please create your password: ");
-        fgets(pass, MAX_LINE, stdin);
-        pass[strlen(pass)-1] = '\0';
+        invalid = safeInput(pass, MAX_LINE);
         for (int i = 0; i < strlen(pass); i++)
         {
             if (!isalnum(pass[i]))
@@ -292,4 +289,23 @@ void prepFile()
     //write structure to file
     fprintf(db, "%s", cJSON_Print(database));
     fclose(db);
+}
+
+int safeInput(char *buffer, int size)
+{
+    fgets(buffer, size, stdin);
+    //check if buffer contains something and replace the newline at the end
+    if (strlen(buffer) > 0 && buffer[strlen(buffer) - 1] == '\n')
+    {
+        buffer[strlen(buffer) - 1] = '\0';
+        return 0;
+    }
+    else
+    {
+        //flush out stdin if user input overflows the buffer
+        printf("Input was too long, please try again.\n");
+        int ch;
+        while ((ch = getchar()) != '\n' && ch != EOF);
+    }
+    return 1;
 }
