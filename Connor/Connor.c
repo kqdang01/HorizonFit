@@ -67,8 +67,7 @@ void CC()
                         printf("9. UBE\n");
                         printf("Select Cardio equipment (1-9): ");
                         scanf("%d", &equipment);
-                        if(equipment > 1 || equipment < 9)
-                        {
+                        if(equipment < 1 || equipment > 9)                        {
                             printf("Invalid Choice\n");
                         }
                     }
@@ -157,7 +156,7 @@ void CC()
                         {
                         printf("Invalid Number\n");
                         }
-                }while(duration > 0 || duration < 1440);
+                }while(duration <= 0 || duration > 1440);
                 do
                 {
                 printf("Enter the number of sets: ");
@@ -166,7 +165,8 @@ void CC()
                         {
                         printf("Invalid Number\n");
                         }
-                }while(sets > 0 || sets < 100);
+                }while(sets <= 0 || sets > 100);
+
                 do
                 {
                 printf("Enter the number of reps per set: ");
@@ -175,7 +175,8 @@ void CC()
                         {
                         printf("Invalid Number\n");
                          }
-                }while(reps > 0 || reps < 1000);
+                }while(reps <= 0 || reps > 1000);
+
 
                 switch (SC)
                 {
@@ -245,13 +246,56 @@ void CC()
     printf("===============================\n");
 
 }
+
+int options, meal_number=0;
+float weight = 100;
+float calories[100];
+char meal[100][100];
+
+void Meal()
+{
+    do
+    {
+        printf("\n1. Add a meal\n2. Display meals\n3.Display weight\n");
+        scanf("%d", &options);
+        switch (options)
+        {
+            case 1:
+                printf("Meal name: ");
+                scanf("%99s", &meal[meal_number]);
+                printf("Calories: ");
+                scanf("%f", &calories[meal_number]);
+                weight=weight+(calories[meal_number]/3500);
+                meal_number++;
+                break;
+            case 2:
+                if (meal_number!=0)
+                {
+                    for (int  i = 0; i < meal_number; i++)
+                    {
+                        printf("\nMeal %d: %s\nCalories: %.2f cal\n", i+1, meal[i], calories[i]);
+                    }
+                }
+                else
+                {
+                    printf("\nNo meals\n");
+                }
+                break;
+            case 3:
+                printf("\nYou weigh %.2f lbs\n", weight);
+                break;
+            default:
+                break;
+        }
+    } while (options!=0);  
+}
+
 int main()
 {
     CC();
+    Meal();
     return 0;
 }
-
-
 
 
 
