@@ -4,6 +4,8 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include "cJSON.c"
+#include "Bryce.c"
+#include "Connor.c"
 
 #define MAX_LINE 30
 #define MAX_BUFFER 3000
@@ -98,8 +100,10 @@ start:
     do
     {
         printf("What would you like to do?\n");
-        printf("1. chat\n");
-        printf("2. log out\n");
+        printf("1. Chat\n");
+        printf("2. BMI Calculator\n");
+        printf("3. Calorie Calculator\n");
+        printf("4. Log Out\n");
 
         printf("Enter your choice here: ");
         scanf("%d", &choiceVariable2);
@@ -113,6 +117,12 @@ start:
                 chat(usernameHolder);
                 break;
             case 2:
+                Bryce();
+                break;
+            case 3:
+                Connor();
+                break;
+            case 4:
                 goto start;
                 break;
             default:
@@ -207,7 +217,7 @@ bool loginUser(cJSON *jsonFile, char *usernameHolder)
     //if username matches nothing in database
     if (!foundUsername)
     {
-        printf("Cannot find an account with that username.\n");
+        printf("Could not find an account with that username.\n");
     }
     return false;
 }

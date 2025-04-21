@@ -1,0 +1,10 @@
+{
+	"name":	"chat",
+	"chatArray":	[{
+			"message":	"i just burneed like 270 calories",
+			"user":	"khang"
+		}, {
+			"message":	"hi its me lebron",
+			"user":	"lebron"
+		}]
+}
