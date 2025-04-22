@@ -141,7 +141,7 @@ void CC()
                         printf("8. Supine Bench Press\n");
                         printf("9. Squat Lunge Machine\n");
                         printf("10. Glute Machine\n");
-                        printf("Select Cardio equipment (1-10): ");
+                        printf("Select Strength equipment (1-10): ");
                         scanf("%d", &SC);
                             if(SC < 1 || SC > 10)
                             {
