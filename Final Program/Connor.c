@@ -56,7 +56,7 @@ void CC()
                     while (equipment < 1 || equipment > 9)
                     {
                         printf("\n====== CARDIO EQUIPMENT ======\n");
-                        printf("1. Teadmill\n");
+                        printf("1. Treadmill\n");
                         printf("2. Elliptical\n");
                         printf("3. Rower\n");
                         printf("4. Upright Bike\n");
@@ -65,14 +65,14 @@ void CC()
                         printf("7. Recumbent Stepper\n");
                         printf("8. Arc\n");
                         printf("9. UBE\n");
-                        printf("Select Cardio equipment (1-9): ");
+                        printf("Select Cardio Equipment (1-9): ");
                         scanf("%d", &equipment);
                         if(equipment < 1 || equipment > 9)                        {
                             printf("Invalid Choice\n");
                         }
                     }
                 do{
-                    printf("Enter the how many minutes used: ");
+                    printf("Enter how many minutes used: ");
                     scanf(" %d", &duration);
                     if(duration < 0 || duration > 1400)
                     {
@@ -124,7 +124,7 @@ void CC()
                         CPM=5;
                 }
                 EC=duration * CPM;
-                printf("%s: %d minutes - %d calorues\n", EN,duration,EC);
+                printf("%s: %d minutes - %d calories\n", EN,duration,EC);
                 break;
             
                 case 2:
@@ -141,7 +141,7 @@ void CC()
                         printf("8. Supine Bench Press\n");
                         printf("9. Squat Lunge Machine\n");
                         printf("10. Glute Machine\n");
-                        printf("Select Strength equipment (1-10): ");
+                        printf("Select Strength Equipment (1-10): ");
                         scanf("%d", &SC);
                             if(SC < 1 || SC > 10)
                             {
