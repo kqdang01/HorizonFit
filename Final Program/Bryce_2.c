@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 int options, meal_number=0;
-float weight = 100;
 float calories[100];
 char meal[100][100];
 
@@ -9,16 +8,17 @@ void Meal()
 {
     do
     {
-        printf("\n1. Add a meal\n2. Display meals\n3.Display weight\n");
+        printf("\n1. Add a meal\n2. Display meals\n3. Quit\n");
+        printf("Enter your choice: ");
         scanf("%d", &options);
+        getchar();
         switch (options)
         {
             case 1:
                 printf("Meal name: ");
-                scanf("%99s", &meal[meal_number]);
+                fgets(meal[meal_number], 100, stdin);
                 printf("Calories: ");
                 scanf("%f", &calories[meal_number]);
-                weight=weight+(calories[meal_number]/3500);
                 meal_number++;
                 break;
             case 2:
@@ -35,7 +35,7 @@ void Meal()
                 }
                 break;
             case 3:
-                printf("\nYou weigh %.2f lbs\n", weight);
+                exit(0);
                 break;
             default:
                 break;
@@ -43,7 +43,7 @@ void Meal()
     } while (options!=0);  
 }
 
-int main()
+int Bryce2()
 {
     Meal();
     return 0;

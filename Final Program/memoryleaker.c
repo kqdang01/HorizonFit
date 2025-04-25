@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "cJSON.c"
 #include "Bryce.c"
+#include "Bryce_2.c"
 #include "Connor.c"
 
 #define MAX_LINE 30
@@ -103,7 +104,8 @@ start:
         printf("1. Chat\n");
         printf("2. BMI Calculator\n");
         printf("3. Calorie Calculator\n");
-        printf("4. Log Out\n");
+        printf("4. Meal Manager\n");
+        printf("5. Log Out\n");
 
         printf("Enter your choice here: ");
         scanf("%d", &choiceVariable2);
@@ -123,6 +125,9 @@ start:
                 Connor();
                 break;
             case 4:
+                Bryce2();
+                break;
+            case 5:
                 goto start;
                 break;
             default:
