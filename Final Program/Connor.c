@@ -56,7 +56,7 @@ float CC()
                     while (equipment < 1 || equipment > 9)
                     {
                         printf("\n====== CARDIO EQUIPMENT ======\n");
-                        printf("1. Teadmill\n");
+                        printf("1. Treadmill\n");
                         printf("2. Elliptical\n");
                         printf("3. Rower\n");
                         printf("4. Upright Bike\n");
@@ -150,7 +150,7 @@ float CC()
                 }
                 do
                 {
-                printf("Enter the number of minutes used: ");
+                printf("Enter number of minutes used: ");
                 scanf(" %d", &duration);
                     if(duration < 0 || duration > 1440)
                         {
@@ -248,54 +248,9 @@ float CC()
     return (float)TC;
 }
 
-int options, meal_number=0;
-float weight = 100;
-float calories[100];
-char meal[100][100];
-
-void Meal()
-{
-    do
-    {
-        printf("\n1. Add a meal\n2. Display meals\n3.Display weight\n");
-        scanf("%d", &options);
-        switch (options)
-        {
-            case 1:
-                printf("Meal name: ");
-                scanf("%99s", &meal[meal_number]);
-                printf("Calories: ");
-                scanf("%f", &calories[meal_number]);
-                weight=weight+(calories[meal_number]/3500);
-                meal_number++;
-                break;
-            case 2:
-                if (meal_number!=0)
-                {
-                    for (int  i = 0; i < meal_number; i++)
-                    {
-                        printf("\nMeal %d: %s\nCalories: %.2f cal\n", i+1, meal[i], calories[i]);
-                    }
-                }
-                else
-                {
-                    printf("\nNo meals\n");
-                }
-                break;
-            case 3:
-                printf("\nYou weigh %.2f lbs\n", weight);
-                break;
-            default:
-                break;
-        }
-    } while (options!=0);  
-}
-
-int main()
+int Connor()
 {
     float total_calories = CC();
-    printf("Total calories burned: %.2f\n", total_calories);
-    Meal();
     return 0;
 }
 
