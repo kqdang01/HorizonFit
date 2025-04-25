@@ -30,7 +30,7 @@
 #define GLUTE_MACHINE_BASE_CALORUES 5
 
 
-void CC()
+float CC()
     {
         int TC=0;
         char UE;
@@ -245,6 +245,7 @@ void CC()
     printf("TOTAL CALORIES BURNED: %d Kcal\n", TC);
     printf("===============================\n");
 
+    return (float)TC;
 }
 
 int options, meal_number=0;
@@ -292,7 +293,8 @@ void Meal()
 
 int main()
 {
-    CC();
+    float total_calories = CC();
+    printf("Total calories burned: %.2f\n", total_calories);
     Meal();
     return 0;
 }
