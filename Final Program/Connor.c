@@ -30,7 +30,7 @@
 #define GLUTE_MACHINE_BASE_CALORUES 5
 
 
-void CC()
+float CC()
     {
         int TC=0;
         char UE;
@@ -56,7 +56,7 @@ void CC()
                     while (equipment < 1 || equipment > 9)
                     {
                         printf("\n====== CARDIO EQUIPMENT ======\n");
-                        printf("1. Treadmill\n");
+                        printf("1. Teadmill\n");
                         printf("2. Elliptical\n");
                         printf("3. Rower\n");
                         printf("4. Upright Bike\n");
@@ -65,14 +65,14 @@ void CC()
                         printf("7. Recumbent Stepper\n");
                         printf("8. Arc\n");
                         printf("9. UBE\n");
-                        printf("Select Cardio Equipment (1-9): ");
+                        printf("Select Cardio equipment (1-9): ");
                         scanf("%d", &equipment);
                         if(equipment < 1 || equipment > 9)                        {
                             printf("Invalid Choice\n");
                         }
                     }
                 do{
-                    printf("Enter how many minutes used: ");
+                    printf("Enter the how many minutes used: ");
                     scanf(" %d", &duration);
                     if(duration < 0 || duration > 1400)
                     {
@@ -124,7 +124,7 @@ void CC()
                         CPM=5;
                 }
                 EC=duration * CPM;
-                printf("%s: %d minutes - %d calories\n", EN,duration,EC);
+                printf("%s: %d minutes - %d calorues\n", EN,duration,EC);
                 break;
             
                 case 2:
@@ -141,7 +141,7 @@ void CC()
                         printf("8. Supine Bench Press\n");
                         printf("9. Squat Lunge Machine\n");
                         printf("10. Glute Machine\n");
-                        printf("Select Strength Equipment (1-10): ");
+                        printf("Select Cardio equipment (1-10): ");
                         scanf("%d", &SC);
                             if(SC < 1 || SC > 10)
                             {
@@ -245,12 +245,57 @@ void CC()
     printf("TOTAL CALORIES BURNED: %d Kcal\n", TC);
     printf("===============================\n");
 
+    return (float)TC;
 }
 
-int Connor()
+int options, meal_number=0;
+float weight = 100;
+float calories[100];
+char meal[100][100];
+
+void Meal()
 {
-    CC();
-    //Meal();
+    do
+    {
+        printf("\n1. Add a meal\n2. Display meals\n3.Display weight\n");
+        scanf("%d", &options);
+        switch (options)
+        {
+            case 1:
+                printf("Meal name: ");
+                scanf("%99s", &meal[meal_number]);
+                printf("Calories: ");
+                scanf("%f", &calories[meal_number]);
+                weight=weight+(calories[meal_number]/3500);
+                meal_number++;
+                break;
+            case 2:
+                if (meal_number!=0)
+                {
+                    for (int  i = 0; i < meal_number; i++)
+                    {
+                        printf("\nMeal %d: %s\nCalories: %.2f cal\n", i+1, meal[i], calories[i]);
+                    }
+                }
+                else
+                {
+                    printf("\nNo meals\n");
+                }
+                break;
+            case 3:
+                printf("\nYou weigh %.2f lbs\n", weight);
+                break;
+            default:
+                break;
+        }
+    } while (options!=0);  
+}
+
+int main()
+{
+    float total_calories = CC();
+    printf("Total calories burned: %.2f\n", total_calories);
+    Meal();
     return 0;
 }
 
