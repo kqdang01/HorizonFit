@@ -41,7 +41,7 @@ start:
     if (db == NULL)
     {
         printf("File did not open correctly, exiting...\n");
-        exit(0);
+        exit(1);
     }
 
     //read database and parse json data
@@ -63,6 +63,7 @@ start:
         printf("What would you like to do?\n");
         printf("1. Login with username and password\n");
         printf("2. Register\n");
+        printf("3. Quit\n");
         printf("Enter your choice: ");
         scanf("%d", &choiceVariable);
         getchar();
@@ -75,6 +76,9 @@ start:
                 break;
             case 2:
                 loggedOn = registerUser(jsonFile, usernameHolder);
+                break;
+            case 3:
+                exit(0);
                 break;
             default:
                 invalid = true;
@@ -139,6 +143,25 @@ start:
     return 0;
 }
 
+int safeInput(char *buffer, int size)
+{
+    fgets(buffer, size, stdin);
+    //check if buffer contains something and replace the newline at the end
+    if (strlen(buffer) > 0 && buffer[strlen(buffer) - 1] == '\n')
+    {
+        buffer[strlen(buffer) - 1] = '\0';
+        return 0;
+    }
+    else
+    {
+        //flush out stdin if user input overflows the buffer
+        printf("Input was too long, please try again.\n\n");
+        int ch;
+        while ((ch = getchar()) != '\n' && ch != EOF);
+    }
+    return 1;
+}
+
 //creating json user object with all user items
 cJSON* createUserObj(cJSON* acc,char* username, char* password)
 {
@@ -157,7 +180,7 @@ void readEntireFile(char *filename,char *buffer, char *line)
     {
         printf("File did not open correctly.\n");
         {
-            exit(0);
+            exit(1);
         }
     }
     //while the line isn't null or eof
@@ -193,7 +216,7 @@ bool loginUser(cJSON *jsonFile, char *usernameHolder)
     if (users == NULL)
     {
         printf("Something has went wrong.\n");
-        exit(0);
+        exit(1);
     }
 
     //iterate through each user object within the userArray
@@ -297,13 +320,13 @@ bool registerUser(cJSON *jsonFile, char *usernameHolder)
     if (users == NULL)
     {
         printf("Something has went wrong.\n");
-        exit(0);
+        exit(1);
     }
     user = cJSON_CreateObject();
     if (user == NULL)
     {
         printf("Something has went wrong.\n");
-        exit(0);
+        exit(1);
     }
 
     //check if there are existing usernames in the database
@@ -340,21 +363,21 @@ void prepFile()
     if (db == NULL)
     {
         printf("File did not open correctly, exiting...\n");
-        exit(0);
+        exit(1);
     }
     //create json objects
     database = cJSON_CreateObject();
     if (database == NULL)
     {
         printf("Something has went wrong.\n");
-        exit(0);
+        exit(1);
     }
 
     name = cJSON_CreateString("User Database");
     if (name == NULL)
     {
         printf("Something has went wrong.\n");
-        exit(0);
+        exit(1);
     }
     cJSON_AddItemReferenceToObject(database, "name", name);
 
@@ -362,7 +385,7 @@ void prepFile()
     if (userArray == NULL)
     {
         printf("Something has went wrong.\n");
-        exit(0);
+        exit(1);
     }
     cJSON_AddItemToObject(database, "users", userArray);
 
@@ -383,7 +406,7 @@ void prepChatFile()
     if (chatFile == NULL)
     {
         printf("File did not open correctly, exiting...\n");
-        exit(0);
+        exit(1);
     }
 
     //create objects
@@ -391,13 +414,13 @@ void prepChatFile()
     if (chat == NULL)
     {
         printf("Something has went wrong.\n");
-        exit(0);
+        exit(1);
     }
     chatArray = cJSON_CreateArray();
     if (chatArray == NULL)
     {
         printf("Something has went wrong.\n");
-        exit(0);
+        exit(1);
     }
 
     //add objects to chat
@@ -406,25 +429,6 @@ void prepChatFile()
 
     fprintf(chatFile, "%s", cJSON_Print(chat));
     fclose(chatFile);
-}
-
-int safeInput(char *buffer, int size)
-{
-    fgets(buffer, size, stdin);
-    //check if buffer contains something and replace the newline at the end
-    if (strlen(buffer) > 0 && buffer[strlen(buffer) - 1] == '\n')
-    {
-        buffer[strlen(buffer) - 1] = '\0';
-        return 0;
-    }
-    else
-    {
-        //flush out stdin if user input overflows the buffer
-        printf("Input was too long, please try again.\n\n");
-        int ch;
-        while ((ch = getchar()) != '\n' && ch != EOF);
-    }
-    return 1;
 }
 
 void chat(char *usernameHolder)
@@ -445,7 +449,7 @@ void chat(char *usernameHolder)
     if (chatFile == NULL)
     {
         printf("File did not open correctly, exiting...\n");
-        exit(0);
+        exit(1);
     }
 
     readEntireFile("chat.json", buffer, line);
@@ -462,7 +466,7 @@ void chat(char *usernameHolder)
     if (chatArray == NULL)
     {
         printf("Something has went wrong.\n");
-        exit(0);
+        exit(1);
     }
 
     //loop through all chat objects and display them to the user
@@ -499,7 +503,7 @@ void chat(char *usernameHolder)
         if (chatObject == NULL)
         {
             printf("Something has went wrong.\n");
-            exit(0);
+            exit(1);
         }
         cJSON_AddStringToObject(chatObject, "message", chatBuffer);
         cJSON_AddStringToObject(chatObject, "user", usernameHolder);
