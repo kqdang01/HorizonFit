@@ -10,6 +10,7 @@ void Meal()
     do
     {
         printf("\n1. Add a meal\n2. Display meals\n3.Display weight\n");
+        printf("\nEnter the number of the option selected: ");
         scanf("%d", &options);
         switch (options)
         {
@@ -46,5 +47,6 @@ void Meal()
 int main()
 {
     Meal();
+    printf("Goodbye, have a good day!");
     return 0;
 }

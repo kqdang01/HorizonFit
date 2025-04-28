@@ -3,7 +3,6 @@
 
 struct User
 {
-    char name[100];
     float weight;
     float height;
     float bmi;
@@ -16,9 +15,9 @@ void BMI()
     printf("BMI\n");
     printf("Enter your weight in lbs: ");
     scanf("%f", &info.weight);
-    printf("Enter your height in inches: ");
+    printf("Enter your height in feet: ");
     scanf("%f", &info.height);
-    info.height=info.height*12;
+    info.height=info.height;
     info.bmi = info.weight*703/(info.height*info.height);
     printf("Your BMI is %.2f", info.bmi);
     if (info.bmi < 18.5)
@@ -55,13 +54,9 @@ int main(void)
 {
     int action;
     char string[100];
-    printf("Please, enter your name:");
-    fgets(info.name,100,stdin);
-    info.name[strcspn(info.name, "\n")] = '\0';
-    printf("Welcome %s.", info.name);
     do
     {
-        printf("\nWhat would you like to do?\n\nOPTIONS:\n1- BMI\n2 - API\n3- Calorie Tracker\n\nEnter the number of the action you want to perform: ", info.name);
+        printf("\nWhat would you like to do?\n\nOPTIONS:\n1- BMI\n2 - API\n3- Calorie Tracker\n\nEnter the number of the action you want to perform: ");
         scanf("%d", &action);
         switch (action)
         {
@@ -92,6 +87,6 @@ int main(void)
         printf("\nAre you done?\n1- YES\n2- NO\nEnter the number of the action you want to perform: ");
         scanf("%d", &action);
     } while (action != 1);
-    printf("Goodbye %s, have a good day!", info.name);
+    printf("Goodbye, have a good day!");
     return 0;
 }

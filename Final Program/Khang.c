@@ -124,6 +124,25 @@ start:
     return 0;
 }
 
+int safeInput(char *buffer, int size)
+{
+    fgets(buffer, size, stdin);
+    //check if buffer contains something and replace the newline at the end
+    if (strlen(buffer) > 0 && buffer[strlen(buffer) - 1] == '\n')
+    {
+        buffer[strlen(buffer) - 1] = '\0';
+        return 0;
+    }
+    else
+    {
+        //flush out stdin if user input overflows the buffer
+        printf("Input was too long, please try again.\n\n");
+        int ch;
+        while ((ch = getchar()) != '\n' && ch != EOF);
+    }
+    return 1;
+}
+
 //creating json user object with all user items
 cJSON* createUserObj(cJSON* acc,char* username, char* password)
 {
@@ -391,25 +410,6 @@ void prepChatFile()
 
     fprintf(chatFile, "%s", cJSON_Print(chat));
     fclose(chatFile);
-}
-
-int safeInput(char *buffer, int size)
-{
-    fgets(buffer, size, stdin);
-    //check if buffer contains something and replace the newline at the end
-    if (strlen(buffer) > 0 && buffer[strlen(buffer) - 1] == '\n')
-    {
-        buffer[strlen(buffer) - 1] = '\0';
-        return 0;
-    }
-    else
-    {
-        //flush out stdin if user input overflows the buffer
-        printf("Input was too long, please try again.\n\n");
-        int ch;
-        while ((ch = getchar()) != '\n' && ch != EOF);
-    }
-    return 1;
 }
 
 void chat(char *usernameHolder)

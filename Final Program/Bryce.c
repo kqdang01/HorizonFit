@@ -16,8 +16,10 @@ void BMI()
     printf("BMI\n");
     printf("Enter your weight in lbs: ");
     scanf("%f", &info.weight);
+    getchar();
     printf("Enter your height in inches: ");
     scanf("%f", &info.height);
+    getchar();
     info.bmi = info.weight*703/(info.height*info.height);
     printf("Your BMI is %.2f", info.bmi);
     if (info.bmi < 18.5)
@@ -62,6 +64,7 @@ int Bryce(void)
     {
         printf("\nWhat would you like to do?\n\nOPTIONS:\n1- BMI\nEnter the number of the action you want to perform: ");
         scanf("%d", &action);
+        getchar();
         switch (action)
         {
             case 1:
@@ -90,6 +93,7 @@ int Bryce(void)
         }
         printf("\nAre you done?\n1- YES\n2- NO\nEnter the number of the action you want to perform: ");
         scanf("%d", &action);
+        getchar();
     } while (action != 1);
     printf("Goodbye %s, have a good day!\n", info.name);
     return 0;
