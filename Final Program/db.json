@@ -1,0 +1,11 @@
+{
+	"name":	"User Database",
+	"users":	[{
+			"username":	"lebron",
+			"password":	"james",
+			"calorieslost":	790
+		}, {
+			"username":	"khang",
+			"password":	"dang"
+		}]
+}

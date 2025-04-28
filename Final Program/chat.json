@@ -1,0 +1,19 @@
+{
+	"name":	"chat",
+	"chatArray":	[{
+			"message":	"lskjdflksdjf",
+			"user":	"lebron"
+		}, {
+			"message":	"lsdjflskdjf",
+			"user":	"lebron"
+		}, {
+			"message":	"sldkjfslkdfj",
+			"user":	"lebron"
+		}, {
+			"message":	"hi",
+			"user":	"lebron"
+		}, {
+			"message":	"hi",
+			"user":	"khang"
+		}]
+}

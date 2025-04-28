@@ -56,10 +56,6 @@ int Bryce(void)
 {
     int action;
     char string[100];
-    printf("Please, enter your name: ");
-    fgets(info.name,100,stdin);
-    info.name[strcspn(info.name, "\n")] = '\0';
-    printf("Welcome %s.", info.name);
     do
     {
         printf("\nWhat would you like to do?\n\nOPTIONS:\n1- BMI\nEnter the number of the action you want to perform: ");
@@ -95,6 +91,6 @@ int Bryce(void)
         scanf("%d", &action);
         getchar();
     } while (action != 1);
-    printf("Goodbye %s, have a good day!\n", info.name);
+    printf("Goodbye, have a good day!\n");
     return 0;
 }
