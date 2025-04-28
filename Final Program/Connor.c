@@ -124,6 +124,7 @@ float CC()
                         CPM=5;
                 }
                 EC=duration * CPM;
+            
                 printf("%s: %d minutes - %d calorues\n", EN,duration,EC);
                 break;
             
@@ -243,7 +244,7 @@ float CC()
     }
     printf("\n======== WORKOUT SUMMARY =======\n");
     printf("TOTAL CALORIES BURNED: %d Kcal\n", TC);
-    printf("===============================\n");
+    printf("================================\n");
 
     return (float)TC;
 }
@@ -253,11 +254,3 @@ int Connor()
     float total_calories = CC();
     return 0;
 }
-
-
-
-
-
-
-
-

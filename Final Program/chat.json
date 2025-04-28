@@ -1,0 +1,13 @@
+{
+	"name":	"chat",
+	"chatArray":	[{
+			"message":	"hello",
+			"user":	"shan"
+		}, {
+			"message":	"HI",
+			"user":	"Connor"
+		}, {
+			"message":	"hello",
+			"user":	"KhushiGOAT"
+		}]
+}
