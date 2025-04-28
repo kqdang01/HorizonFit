@@ -243,7 +243,7 @@ float CC()
     }
     printf("\n======== WORKOUT SUMMARY =======\n");
     printf("TOTAL CALORIES BURNED: %d Kcal\n", TC);
-    printf("===============================\n");
+    printf("================================\n");
 
     return (float)TC;
 }
