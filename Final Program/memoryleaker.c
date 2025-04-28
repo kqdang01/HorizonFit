@@ -194,43 +194,6 @@ void readEntireFile(char *filename,char *buffer, char *line)
     }
     fclose(randFile);
 }
-void MaximUpdateCalories(char *usernameHolder,float calories_lost) {
-    char buffer[MAX_BUFFER] = {};
-    char line[MAX_BUFFER] = {};
-    cJSON *username = NULL;
-    cJSON *users = NULL;
-    cJSON *user = NULL;
-    cJSON *calories;
-    cJSON *jsonFile;
-    FILE *db = NULL;
-
-    db = fopen("db.json","r+");
-    if (db == NULL) {
-        printf("File did not open correctly.\n");
-    }
-
-
-    readEntireFile("db.json", buffer, line);
-    jsonFile = cJSON_Parse(buffer);
-
-    users = cJSON_GetObjectItemCaseSensitive(jsonFile, "users");
-    if (users == NULL)
-    {
-        printf("Something has went wrong.\n");
-        exit(1);
-    }
-    cJSON_ArrayForEach(user,users)
-    {
-        username = cJSON_GetObjectItemCaseSensitive(user, "username");
-        if (!strcmp(username->valuestring,usernameHolder)) {
-            calories = cJSON_CreateNumber(calories_lost);
-            cJSON_AddItemToObject(user, "calorieslost", calories);
-        }
-    }
-    fprintf(db,"%s", cJSON_Print(jsonFile));
-    fclose(db);
-
-}
 
 bool loginUser(cJSON *jsonFile, char *usernameHolder)
 {
@@ -551,4 +514,38 @@ void chat(char *usernameHolder)
     }
     fprintf(chatFile, "%s", cJSON_Print(chat));
     fclose(chatFile);
+}
+
+void MaximUpdateCalories(char *usernameHolder,float calories_lost) {
+    char buffer[MAX_BUFFER] = {};
+    char line[MAX_BUFFER] = {};
+    cJSON *username = NULL;
+    cJSON *users = NULL;
+    cJSON *user = NULL;
+    cJSON *calories;
+    cJSON *jsonFile;
+    FILE *db = NULL;
+
+    db = fopen("db.json","r+");
+    if (db == NULL) {
+        printf("File did not open correctly.\n");
+    }
+    readEntireFile("db.json", buffer, line);
+    jsonFile = cJSON_Parse(buffer);
+    users = cJSON_GetObjectItemCaseSensitive(jsonFile, "users");
+    if (users == NULL)
+    {
+        printf("Something has went wrong.\n");
+        exit(1);
+    }
+    cJSON_ArrayForEach(user,users)
+    {
+        username = cJSON_GetObjectItemCaseSensitive(user, "username");
+        if (!strcmp(username->valuestring,usernameHolder)) {
+            calories = cJSON_CreateNumber(calories_lost);
+            cJSON_AddItemToObject(user, "calorieslost", calories);
+        }
+    }
+    fprintf(db,"%s", cJSON_Print(jsonFile));
+    fclose(db);
 }
