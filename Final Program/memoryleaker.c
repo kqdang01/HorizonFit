@@ -39,7 +39,7 @@ int main(void)
     cJSON *jsonFile = NULL;
 start:
     //opening the database file for reading and writing
-    FILE *db = fopen("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\db.json","r+");
+    FILE *db = fopen("db.json","r+");
     if (db == NULL)
     {
         printf("File did not open correctly, exiting...\n");
@@ -47,14 +47,14 @@ start:
     }
 
     //read database and parse json data
-    readEntireFile("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\db.json",buffer,line);
+    readEntireFile("db.json",buffer,line);
     jsonFile = cJSON_Parse(buffer);
 
     //if database was empty, prep the database boilerplate
     if (jsonFile == NULL)
     {
         prepFile();
-        readEntireFile("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\db.json",buffer,line);
+        readEntireFile("db.json",buffer,line);
         jsonFile = cJSON_Parse(buffer);
     }
     fclose(db);
@@ -108,8 +108,8 @@ start:
         printf("What would you like to do?\n");
         printf("1. Chat\n");
         printf("2. BMI Calculator\n");
-        printf("3. Calorie Calculator\n");
-        printf("4. Meal Manager\n");
+        printf("3. Meal Manager\n");
+        printf("4. Calorie Calculator\n");
         printf("5. Log Out\n");
 
         printf("Enter your choice here: ");
@@ -127,12 +127,11 @@ start:
                 Bryce();
                 break;
             case 3:
-                calories_loss = CC();
-                MaximUpdateCalories(usernameHolder,calories_loss);
-                //Maxim - Put function here ^
+                Bryce2();
                 break;
             case 4:
-                Bryce2();
+                calories_loss = CC();
+                MaximUpdateCalories(usernameHolder,calories_loss);
                 break;
             case 5:
                 goto start;
@@ -205,13 +204,13 @@ void MaximUpdateCalories(char *usernameHolder,float calories_lost) {
     cJSON *jsonFile;
     FILE *db = NULL;
 
-    db = fopen("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\db.json","r+");
+    db = fopen("db.json","r+");
     if (db == NULL) {
         printf("File did not open correctly.\n");
     }
 
 
-    readEntireFile("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\db.json", buffer, line);
+    readEntireFile("db.json", buffer, line);
     jsonFile = cJSON_Parse(buffer);
 
     users = cJSON_GetObjectItemCaseSensitive(jsonFile, "users");
@@ -224,7 +223,6 @@ void MaximUpdateCalories(char *usernameHolder,float calories_lost) {
     {
         username = cJSON_GetObjectItemCaseSensitive(user, "username");
         if (!strcmp(username->valuestring,usernameHolder)) {
-            printf("user found!\n");
             calories = cJSON_CreateNumber(calories_lost);
             cJSON_AddItemToObject(user, "calorieslost", calories);
         }
@@ -305,7 +303,7 @@ bool registerUser(cJSON *jsonFile, char *usernameHolder)
     FILE *db;
 
     //open file for reading and writing
-    db = fopen("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\db.json", "r+");
+    db = fopen("db.json", "r+");
     if (db == NULL)
     {
         printf("Something has went wrong.\n");
@@ -401,7 +399,7 @@ void prepFile()
     cJSON *userArray = NULL;
     
     //open database file
-    FILE *db = fopen("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\db.json", "r+");
+    FILE *db = fopen("db.json", "r+");
     if (db == NULL)
     {
         printf("File did not open correctly, exiting...\n");
@@ -444,7 +442,7 @@ void prepChatFile()
     FILE *chatFile = NULL;
 
     //open chat file
-    chatFile = fopen("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\chat.json", "r+");
+    chatFile = fopen("chat.json", "r+");
     if (chatFile == NULL)
     {
         printf("File did not open correctly, exiting...\n");
@@ -487,20 +485,20 @@ void chat(char *usernameHolder)
     FILE *chatFile = NULL;
 
     //open chat file
-    chatFile = fopen("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\chat.json", "r+");
+    chatFile = fopen("chat.json", "r+");
     if (chatFile == NULL)
     {
         printf("File did not open correctly, exiting...\n");
         exit(1);
     }
 
-    readEntireFile("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\chat.json", buffer, line);
+    readEntireFile("chat.json", buffer, line);
     chat = cJSON_Parse(buffer);
     //if chat file is empty, set up chat boilerplate
     if (chat == NULL)
     {
         prepChatFile();
-        readEntireFile("C:\\Users\\maxim\\Projects\\HorizonFit\\Final Program\\chat.json", buffer, line);
+        readEntireFile("chat.json", buffer, line);
         chat = cJSON_Parse(buffer);
     }
 

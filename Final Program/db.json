@@ -3,6 +3,7 @@
 	"users":	[{
 			"username":	"lebron",
 			"password":	"james",
+			"calorieslost":	330,
 			"calorieslost":	330
 		}]
 }
