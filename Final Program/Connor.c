@@ -250,7 +250,7 @@ float CC()
 
 int Connor()
 {
-    float total_calories = CC();
+    CC();
     return 0;
 }
 
